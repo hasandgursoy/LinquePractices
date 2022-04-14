@@ -44,3 +44,34 @@ foreach (var item in studentList)
 // OrderBy() sıralama yapmak için kullanıyoruz
 System.Console.WriteLine("**** OrderBy ****");
 var studentz = _context.Students.OrderBy(x => x.StudentID).ToList();
+
+foreach (var item in studentz)
+{
+    System.Console.WriteLine(item.StudentID+" - "+item.Name+" "+item.Surname);
+
+}
+
+// OrderByDescending() tersden sıralama yapmak için kullanıyoruz
+System.Console.WriteLine("**** OrderByDescendingLing ****");
+ studentz = _context.Students.OrderByDescending(x => x.StudentID).ToList();
+
+foreach (var item in studentz)
+{
+    System.Console.WriteLine(item.StudentID+" - "+item.Name+" "+item.Surname);
+    
+}
+
+// Anonymous Object Result ()
+// LINQ her zaman geriye entity objesi dönmek zorunda değildir.
+// Query sonucunu kendi yarattığınız bir obje formatında döndürebilirsiniz.
+System.Console.WriteLine("**** Anonymous Object Result ****");
+
+var anonymousObject = _context.Students.Where(x => x.ClassID ==2).Select(x => new {
+Id = x.StudentID,
+FullName = x.Name +" "+x.Surname
+});
+
+foreach (var obj in anonymousObject)
+{   
+    System.Console.WriteLine(obj.Id+" - "+obj.FullName);
+}
